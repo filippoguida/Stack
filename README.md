@@ -1,6 +1,6 @@
 # Stack
 
-Randm Step Generator for Push
+Random Step Generator for Push
 
 ## Authors
 
