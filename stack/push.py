@@ -2,7 +2,6 @@ import random
 import time
 import mido
 import zope.event
-
 from mido import Message
 from mido.ports import MultiPort
 

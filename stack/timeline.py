@@ -1,9 +1,11 @@
+import time
 from threading import Thread, Event
 
 class Timeline(Thread):
-    def __init__(self, sequence):
+    def __init__(self, sequence, push):
         Thread.__init__(self)
         self.playing = Event()
+        self.push = push
         self.position = 0
         self.stepDur = 1/16
 

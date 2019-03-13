@@ -1,26 +1,33 @@
-from core import Push
-from core import Sequence
+from .slot import Slot
 
-if __name__ == '__main__':
-    #Push interface
-    p = Push()
-    p.snapshot();
+class Stack:
+    def __init__(self, push, sequence, column):
+        self.push = push
+        self.column = column
+        self.slots = []
+        for raw in range(8):
+            self.slots.append(Slot(sequence, self))
+        self.currentSlot = self.slots[0]
 
-    #Clear
-    p.clear_screen()
+    def get_current_slot(self):
+        return self.currentSlot
 
-    #Title
-    p.print_text("PUSH EXPERIMENTS #1", 0)
-    p.print_text("- random patterns generator", 1)
-    p.print_text("click REC to generate new patterns ...", 3)
+    def get_slot_row(self, slot):
+        return self.slots.index(slot)
 
+    def get_current_slot_row(self):
+        return self.get_slot_row(self.currentSlot)
 
-    #Generation
-    b = Sequence(p)
-    b.print()
-    #b.get_pattern(1)
-    #t = Timeline(b)
-    #t.play()
-    #p.sendSysex([71, 127, 21, 4, 0, 8, 1, 0, 127, 127, 100, 0, 0, 0])
-
-    input()
+    def set_current_slot(self, slot):
+        self.currentSlot = slot
+        #slots on pads
+        for row in range(8):
+            self.push.sendSysex([71, 127, 21, 4, 0, 8,
+                self.column + row*8,
+                0, 127, 127, 127, 127, 127, 127 #white
+            ])
+        #current slot red
+        self.push.sendSysex([71, 127, 21, 4, 0, 8,
+            self.column + self.get_current_slot_row()*8,
+            0, 127, 127, 0, 0, 0, 0 #red
+        ])
