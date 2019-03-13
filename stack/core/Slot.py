@@ -6,30 +6,27 @@ class Slot:
 
     instances = []
 
-    def __init__(self, push, stack, raw):
-        self.push = push
+    def __init__(self, sequence, stack, n_tracks=4):
+        self.sequence = sequence
         self.stack = stack
-        self.raw = raw
         #Set MIDI IN callback function
         self.status = 'disabled'
         zope.event.subscribers.append(self.change_status)
         #Evaluate pattern
         self.patterns = []
-        for i in range(0, 4):
-            self.patterns.append(BinaryPattern(push, i))
+        for i in range(n_tracks):
+            self.patterns.append(BinaryPattern())
         #Store instance
         Slot.instances.append(self)
 
-    def print(self, offset):
-        for pattern in self.patterns:
-            pattern.print(offset)
-
-    def get_pattern(self, index):
-        return self.patterns[index].get_events()
+    def get_pattern(self, track):
+        return self.patterns[track].get_events()
 
     def get_midiNN(self):
-        #TODO: make 36 a constant
-        return 36 + self.stack.column + self.raw*8
+        #TODO: make 36 a constant (first pad bottm/left)
+        c = self.stack.column
+        r = self.stack.get_slot_row(self)*8
+        return 36 + c + r
 
     def change_status(self, event):
         if event.message.type == 'note_on':
@@ -40,7 +37,6 @@ class Slot:
                         if slot.stack == self.stack:
                             slot.status == 'disabled'
                     #Enable the this slot
-                    self.push.clear_screen();
                     self.status == 'enabled'
-                    self.stack.currentSlot = self.raw
-                    self.stack.print(self.raw)
+                    self.stack.set_current_slot(self)
+                    self.sequence.print()

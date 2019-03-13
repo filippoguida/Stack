@@ -14,6 +14,7 @@ class Matrix:
         i = 0
         for stack in self.stacks:
             stack.print(offset)
+            print(offset)
             if i%2 == 0 and i != 0:
                 offset = offset + 9
             else:

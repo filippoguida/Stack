@@ -82,7 +82,6 @@ class Push:
     def midi_input_responder(self, message):
         event = PushEvent(message)
         zope.event.notify(event)
-        print(event)
 
 class PushEvent:
     def __init__(self, message):

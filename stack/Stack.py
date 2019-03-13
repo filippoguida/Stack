@@ -18,7 +18,7 @@ if __name__ == '__main__':
     #Generation
     b = Sequence(p)
     b.print()
-    b.get_pattern(1)
+    #b.get_pattern(1)
     #t = Timeline(b)
     #t.play()
     #p.sendSysex([71, 127, 21, 4, 0, 8, 1, 0, 127, 127, 100, 0, 0, 0])
