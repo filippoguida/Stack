@@ -1,4 +1,5 @@
 from core import Push
+from core import Sequence
 
 if __name__ == '__main__':
     #Push interface

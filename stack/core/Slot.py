@@ -1,3 +1,7 @@
+import zope.event
+
+from .binarypattern import BinaryPattern
+
 class Slot:
 
     instances = []

@@ -1,4 +1,4 @@
-from stack.matrix import Matrix
+from .matrix import Matrix
 
 class Sequence:
     def __init__(self, push):

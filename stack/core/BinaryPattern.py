@@ -1,4 +1,3 @@
-import push
 import random
 
 class BinaryPattern:

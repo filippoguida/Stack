@@ -1,3 +1,5 @@
+from .slot import Slot
+
 class Stack:
     def __init__(self, push, column):
         self.push = push
