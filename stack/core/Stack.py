@@ -5,7 +5,7 @@ class Stack:
         self.push = push
         self.column = column
         self.slots = []
-        for raw in range(0, 8):
+        for raw in range(8):
             self.slots.append(Slot(sequence, self))
         self.currentSlot = self.slots[0]
 
