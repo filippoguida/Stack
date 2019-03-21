@@ -1,18 +1,40 @@
-from .slotstack import SlotStack
+from Stack import Stack
 
 class Sequence:
-    def __init__(self, push):
-        self.push = push
-        self.stacks = []
-        for i in range(0, 8):
-            self.stacks.append(SlotStack(push, self, i))
-        self.print()
+
+    def __init__(self, control_surface):
+        self._control_surface = control_surface
+        self._stacks = []
+        for i in range(8):
+            self._stacks.append(Stack(control_surface, self, i))
+
+
+    def initialization(self):
+        self.generate()
+        for stack in self._stacks:
+            stack.initialization()
+        self.update()
+
+
+    def update(self):
+        self.print_lcd()
+
+
+    def generate(self):
+        for stack in self._stacks:
+            stack.generate()
+
+
+    def get_stack(self, index):
+        return self._stacks[index]
+
 
     def get_current_slots(self):
         current_slots = []
-        for stack in self.stacks:
+        for stack in self._stacks:
             current_slots.append(stack.get_current_slot())
         return current_slots
+
 
     def get_pattern(self, track):
         pattern = []
@@ -20,12 +42,12 @@ class Sequence:
             pattern = pattern + slot.get_pattern(track)
         return pattern
 
-    def print(self):
-        self.push.clear_screen()
+
+    def print_lcd(self):
+        self._control_surface.clear_screen()
         track = 0
         for track in range(4):
             pattern = self.get_pattern(track)
-
             output_string = ""
             i = 0
             for event in pattern:
@@ -36,5 +58,4 @@ class Sequence:
                 else:
                     output_string = output_string + ' '
                 i = i + 1
-            self.push.print_text(output_string, track)
-            print(output_string)
+            self._control_surface.print_text(output_string, track)
