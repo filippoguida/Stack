@@ -17,7 +17,8 @@ if __name__ == '__main__':
     seq = Sequence(push)
     seq.print()
     t = Timeline(push, seq)
-    t.play()
-    #p.sendSysex([71, 127, 21, 4, 0, 8, 1, 0, 127, 127, 100, 0, 0, 0])
+    #t.play()
+    i = 0
+    push.sendSysex([71, 127, 21, 4, 0, 8, 64+i, 0, 127, 127, 100, 0, 0, 0])
 
     input()

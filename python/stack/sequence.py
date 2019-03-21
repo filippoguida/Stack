@@ -1,11 +1,11 @@
-from .stack import Stack
+from .slotstack import SlotStack
 
 class Sequence:
     def __init__(self, push):
         self.push = push
         self.stacks = []
         for i in range(0, 8):
-            self.stacks.append(Stack(push, self, i))
+            self.stacks.append(SlotStack(push, self, i))
         self.print()
 
     def get_current_slots(self):

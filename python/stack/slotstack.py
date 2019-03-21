@@ -1,6 +1,6 @@
 from .slot import Slot
 
-class Stack:
+class SlotStack:
     def __init__(self, push, sequence, column):
         self.push = push
         self.column = column
